@@ -1,24 +1,28 @@
-//Desstructuring
+//sprear operator
 
-const aprendiendoJS={
-    version:{
-        nueva:'ES6',
-        anteiror:'ES5'
-    },
-    framework:["react","vue","angular"]
+let lenguajes=['javascript','php','python']
+let frameworks=['react','larabel','django']
+//vieja forma
+let combinacion =lenguajes.concat(frameworks);
+console.log(combinacion)
+
+//nuva forma mas sencialla
+let nuevaCombinacion=[...lenguajes,...frameworks]
+console.log(nuevaCombinacion)
+
+//copiar lenjuajes
+let copialenguajes=[...lenguajes]
+console.log(copialenguajes)
+
+//
+
+let [ultimo]=[...copialenguajes].reverse();
+console.log(ultimo)
+
+//funcion suma numeros
+
+function suma(a,b,c){
+    console.log(a+b+c)
 }
-//Destructuring es extraer valores de un objeto
-console.log(aprendiendoJS)
-
-//version anteiror
-
-let versiones=aprendiendoJS.version.nueva;
-console.log("__________Version anterior_________")
-console.log(versiones)
-let frameworks=aprendiendoJS.framework[1]
-console.log(frameworks)
-
-//nueva forma
-let {version,framework}=aprendiendoJS.version
-console.log(version)
-console.log(framework)
+const numeros=[1,2,3];
+suma(...numeros)

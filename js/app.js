@@ -1,17 +1,36 @@
-//promises
-const aplicarDescuento=new Promise((resolve,reject)=>{
-    setTimeout(()=>{
-        let descuento=false;
+let descargarUsuarios= cantidad=>new Promise((resolve,reject)=>{
+    //pasar la cantidad a la api
+    let api=`https://randomuser.me/api/?results=${cantidad}&nat=us`;
 
-        if (descuento){
-            resolve('Descuento Aplicado!');
+    //llamado ajax
+    let xhr=new XMLHttpRequest()
+
+    //abrir la conexion
+    xhr.open('GET',api,true)
+
+    //on load
+    //muestro el resultado cuando sea incorrecto
+    xhr.onload=()=>{
+        if(xhr.status===200){
+            resolve(JSON.parse(xhr.response).results)
         }else{
-            reject("No se pudo aplicar Descuento")
+            reject(Error(xhr.statusText))
         }
-    },3000);
+    }
+
+    //opcional 
+    xhr.onerror=(error)=>reject(error);
+
+    //send
+    xhr.send()
+
+
 })
-aplicarDescuento.then(resultado=>{
-    console.log(resultado)
-}).catch(error=>{
-    console.log(error)
-})
+descargarUsuarios(20)
+    .then(
+        miembros=>console.log(miembros),
+        error=>console.error(
+            new Error('hubo un error'+error)
+        )
+    )
+

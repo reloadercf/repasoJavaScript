@@ -26,11 +26,25 @@ let descargarUsuarios= cantidad=>new Promise((resolve,reject)=>{
 
 
 })
-descargarUsuarios(20)
+descargarUsuarios(30)
     .then(
-        miembros=>console.log(miembros),
+        miembros=>imprimirHTML(miembros),
         error=>console.error(
             new Error('hubo un error'+error)
         )
-    )
+    );
 
+function imprimirHTML(usuarios){
+    let html='';
+    usuarios.forEach(usuario => {
+        html+=`
+            <li>
+                nombre: ${usuario.name.first} ${usuario.name.last}
+                pais: ${usuario.nat}
+                Imagen: <img src="${usuario.picture.medium}">
+            </li>
+        `
+    });
+    let contenedorApp=document.querySelector('#app');
+    contenedorApp.innerHTML=html
+}

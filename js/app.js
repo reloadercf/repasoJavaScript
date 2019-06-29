@@ -1,50 +1,34 @@
-let descargarUsuarios= cantidad=>new Promise((resolve,reject)=>{
-    //pasar la cantidad a la api
-    let api=`https://randomuser.me/api/?results=${cantidad}&nat=us`;
+//modulos den javascript
+//cuando se usan llaves es por que no hay un export default en el otro archivo
+// import {nombreTarea} from './tareas.js'
+// console.log(nombreTarea)
 
-    //llamado ajax
-    let xhr=new XMLHttpRequest()
+//sin uso de llaves y renombrando cuando existe un export default en el archivo anterior
+// import Hola from './tareas.js'
 
-    //abrir la conexion
-    xhr.open('GET',api,true)
-
-    //on load
-    //muestro el resultado cuando sea incorrecto
-    xhr.onload=()=>{
-        if(xhr.status===200){
-            resolve(JSON.parse(xhr.response).results)
-        }else{
-            reject(Error(xhr.statusText))
-        }
-    }
-
-    //opcional 
-    xhr.onerror=(error)=>reject(error);
-
-    //send
-    xhr.send()
+// console.log(Hola)
 
 
-})
-descargarUsuarios(30)
-    .then(
-        miembros=>imprimirHTML(miembros),
-        error=>console.error(
-            new Error('hubo un error'+error)
-        )
-    );
 
-function imprimirHTML(usuarios){
-    let html='';
-    usuarios.forEach(usuario => {
-        html+=`
-            <li>
-                nombre: ${usuario.name.first} ${usuario.name.last}
-                pais: ${usuario.nat}
-                Imagen: <img src="${usuario.picture.medium}">
-            </li>
-        `
-    });
-    let contenedorApp=document.querySelector('#app');
-    contenedorApp.innerHTML=html
-}
+//importar funcion y variable
+// import {nombreTarea, crearTarea, completada} from './tareas.js'
+
+// let tarea1=crearTarea(nombreTarea,'urgente')
+// console.log(tarea1)
+// completada()
+
+//importar clses
+
+import Tareas from './tareas.js'
+import ComprasPendientes from './compras.js'
+
+let tarea1=new Tareas('aprender JS','urgente')
+
+console.log(tarea1)
+console.log(tarea1.mostrar())
+
+console.log('_______-compras pendientes')
+let compra1=new ComprasPendientes('Jabon','urgente',3)
+console.log(compra1)
+console.log(compra1.mostrar())
+console.log(compra1.ahora())
